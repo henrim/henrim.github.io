@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Angular Material: Indicate active tab with ui-router
+title: 'Angular Material: Indicate active tab with ui-router'
 tags: 
 - angular
 - ui-router

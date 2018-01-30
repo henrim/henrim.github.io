@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Angular: Filter overdue items from colectiondates
+title: 'Angular: Filter overdue items from collectiondates'
 tags: 
 - angular
 - filter
@@ -12,7 +12,7 @@ tags:
 Last post we created a filter that returned true if item was overdue.
 Now it's time to expand it a bit so we also can use it to filter items in ng-repeat:
 
-
+{% raw %}
 ```javascript
 angular.module('my.utils', [])
 .filter('overdue', function () {    
@@ -46,7 +46,9 @@ angular.module('my.utils', [])
     };
 })
 ``` 
+
 There is also a small generic helper-function you should include:
+
 
 ```javascript
 
@@ -66,13 +68,14 @@ Object.byString = function(o, s) {
 }
 
 ``` 
-##Usage in html-template:
+
+## Usage in html-template:
 
 Now we can pass this as a filter to our ng-repeat:
 
 Simple property:
 ```html
-//Simple property
+<!-- Simple property -->
 <tr ng-repeat="s in surveys|overdue: 'due'" >
     <td>{{s.due|date}}</td>
     <td>{{s.name}}</td>
@@ -86,4 +89,4 @@ __Nested property/compex object:__
     <td>{{s.Survey.Name}}</td>
 </tr>
 ```
-
+{% endraw %}
