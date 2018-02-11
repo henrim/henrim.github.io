@@ -12,6 +12,7 @@ tags:
 Observables in Angular
 
 Best practice for unsubscribing observables
+{% raw %}
 
 ````javascript
 import { Component, OnInit } from '@angular/core';
@@ -46,3 +47,4 @@ export class ShowContractComponent implements OnInit {
 }
 
 ````
+{% endraw %}
