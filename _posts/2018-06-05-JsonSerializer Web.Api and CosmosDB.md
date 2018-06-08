@@ -11,6 +11,14 @@ tags:
 
 ---
 
+Update:
+This has an issue when you want to serialize the same object in two different ways!
+Due to inheriting from CamelCasePropertyNamesContractResolver it will cache the previous serialization resolutions. Event though you new up your resolvers, Serializationsettings and all.
+This caching is [stated in Newtonsoft code](https://github.com/JamesNK/Newtonsoft.Json/blob/master/Src/Newtonsoft.Json/Serialization/CamelCasePropertyNamesContractResolver.cs) as due to backwards compability issues,
+so the solution is inherit from DefaultContractResolver and set NamingStrategy in stead. See end of this post for an example 
+
+
+Original post:
 
 I had a need to remove some properties from an object when returning it in my Web.Api,
 but serializing the full object when storing it to the database.
@@ -119,3 +127,31 @@ It was then used in a controller action like this:
         }
     }
 
+
+
+
+
+
+
+## After update:
+
+_Solution:_
+{%raw %}
+
+    public class CamelCaseFromDefaultContractResolver : DefaultContractResolver
+    {
+        public CamelCaseFromDefaultContractResolver()
+        {
+            NamingStrategy = new CamelCaseNamingStrategy
+            {
+                ProcessDictionaryKeys = true,
+                OverrideSpecifiedNames = true
+            };
+        }
+    }
+
+
+    public class PropertyRenameAndIgnoreSerializerContractResolver : CamelCaseFromDefaultContractResolver
+    {
+        ...
+    }
